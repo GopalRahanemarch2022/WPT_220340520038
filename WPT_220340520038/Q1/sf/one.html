@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #b1{
+            width: 100%;
+        }
+    </style>
+    <script>src="jquery-3.5.1.min.js"</script>
+    <script>
+        $(()=>{
+            $("b1").click(() => {
+                console.log("its working");
+
+                let send1 ={Book_id:$("#t1").val(),BookNmae:$("#t2").val(),price:$("#t3").val()};
+
+                let parafunction=
+                {
+                    data:send1,
+                    url:"http://localhost:1999/addbook",
+                    type:'get',
+                    dataType:"json",
+                    success:(datagivenbyserver)=>{
+                        console.log("book is successfully added"+datagivenbyserver.status )
+                              if(datagivenbyserver.status == true)
+                              {
+                                  $("#message").text("book is add");
+                            }
+                            else{
+                                   $("#message").text("book not addaed");
+                            }
+                    },
+                error:(errorgivenbyserver)=>{
+                    console.log("failed to connect server")
+                }
+                };
+                $ajax(parafunction);
+
+            })
+        })
+    </script>
+</head>
+<body>
+    <input type="text" id="t1" placeholder="Book_id">
+    <hr>
+    <input type="text" id="t2" placeholder="BookName">
+    <hr>
+    <input type="text" id="t3" placeholder="price">
+    <hr>
+    <input type="button" id="b1" placeholder="add_a_block">
+</body>
+</html>
